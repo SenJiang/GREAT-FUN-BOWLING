@@ -1,0 +1,316 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A36C0E281EB8C58A002C73BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E271EB8C58A002C73BD /* main.m */; };
+		A36C0E2B1EB8C58A002C73BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E2A1EB8C58A002C73BD /* AppDelegate.m */; };
+		A36C0E2E1EB8C58A002C73BD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E2D1EB8C58A002C73BD /* ViewController.m */; };
+		A36C0E311EB8C58A002C73BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A36C0E2F1EB8C58A002C73BD /* Main.storyboard */; };
+		A36C0E331EB8C58A002C73BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36C0E321EB8C58A002C73BD /* Assets.xcassets */; };
+		A36C0E361EB8C58A002C73BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A36C0E341EB8C58A002C73BD /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A36C0E231EB8C58A002C73BD /* GREAT FUN BOWLING.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GREAT FUN BOWLING.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A36C0E271EB8C58A002C73BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A36C0E291EB8C58A002C73BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A36C0E2A1EB8C58A002C73BD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A36C0E2C1EB8C58A002C73BD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A36C0E2D1EB8C58A002C73BD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A36C0E301EB8C58A002C73BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A36C0E321EB8C58A002C73BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A36C0E351EB8C58A002C73BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A36C0E371EB8C58A002C73BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A36C0E201EB8C58A002C73BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A36C0E1A1EB8C58A002C73BD = {
+			isa = PBXGroup;
+			children = (
+				A36C0E251EB8C58A002C73BD /* GREAT FUN BOWLING */,
+				A36C0E241EB8C58A002C73BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A36C0E241EB8C58A002C73BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A36C0E231EB8C58A002C73BD /* GREAT FUN BOWLING.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A36C0E251EB8C58A002C73BD /* GREAT FUN BOWLING */ = {
+			isa = PBXGroup;
+			children = (
+				A36C0E291EB8C58A002C73BD /* AppDelegate.h */,
+				A36C0E2A1EB8C58A002C73BD /* AppDelegate.m */,
+				A36C0E2C1EB8C58A002C73BD /* ViewController.h */,
+				A36C0E2D1EB8C58A002C73BD /* ViewController.m */,
+				A36C0E2F1EB8C58A002C73BD /* Main.storyboard */,
+				A36C0E321EB8C58A002C73BD /* Assets.xcassets */,
+				A36C0E341EB8C58A002C73BD /* LaunchScreen.storyboard */,
+				A36C0E371EB8C58A002C73BD /* Info.plist */,
+				A36C0E261EB8C58A002C73BD /* Supporting Files */,
+			);
+			path = "GREAT FUN BOWLING";
+			sourceTree = "<group>";
+		};
+		A36C0E261EB8C58A002C73BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A36C0E271EB8C58A002C73BD /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A36C0E221EB8C58A002C73BD /* GREAT FUN BOWLING */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A36C0E3A1EB8C58A002C73BD /* Build configuration list for PBXNativeTarget "GREAT FUN BOWLING" */;
+			buildPhases = (
+				A36C0E1F1EB8C58A002C73BD /* Sources */,
+				A36C0E201EB8C58A002C73BD /* Frameworks */,
+				A36C0E211EB8C58A002C73BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GREAT FUN BOWLING";
+			productName = "GREAT FUN BOWLING";
+			productReference = A36C0E231EB8C58A002C73BD /* GREAT FUN BOWLING.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A36C0E1B1EB8C58A002C73BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "姜森";
+				TargetAttributes = {
+					A36C0E221EB8C58A002C73BD = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A36C0E1E1EB8C58A002C73BD /* Build configuration list for PBXProject "GREAT FUN BOWLING" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A36C0E1A1EB8C58A002C73BD;
+			productRefGroup = A36C0E241EB8C58A002C73BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A36C0E221EB8C58A002C73BD /* GREAT FUN BOWLING */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A36C0E211EB8C58A002C73BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A36C0E361EB8C58A002C73BD /* LaunchScreen.storyboard in Resources */,
+				A36C0E331EB8C58A002C73BD /* Assets.xcassets in Resources */,
+				A36C0E311EB8C58A002C73BD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A36C0E1F1EB8C58A002C73BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A36C0E2E1EB8C58A002C73BD /* ViewController.m in Sources */,
+				A36C0E2B1EB8C58A002C73BD /* AppDelegate.m in Sources */,
+				A36C0E281EB8C58A002C73BD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A36C0E2F1EB8C58A002C73BD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A36C0E301EB8C58A002C73BD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A36C0E341EB8C58A002C73BD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A36C0E351EB8C58A002C73BD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A36C0E381EB8C58A002C73BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A36C0E391EB8C58A002C73BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A36C0E3B1EB8C58A002C73BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "GREAT FUN BOWLING/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jiangsen.GREAT-FUN-BOWLING";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A36C0E3C1EB8C58A002C73BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "GREAT FUN BOWLING/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jiangsen.GREAT-FUN-BOWLING";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A36C0E1E1EB8C58A002C73BD /* Build configuration list for PBXProject "GREAT FUN BOWLING" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A36C0E381EB8C58A002C73BD /* Debug */,
+				A36C0E391EB8C58A002C73BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A36C0E3A1EB8C58A002C73BD /* Build configuration list for PBXNativeTarget "GREAT FUN BOWLING" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A36C0E3B1EB8C58A002C73BD /* Debug */,
+				A36C0E3C1EB8C58A002C73BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A36C0E1B1EB8C58A002C73BD /* Project object */;
+}
