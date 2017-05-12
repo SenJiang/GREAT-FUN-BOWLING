@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ZZNUIManager.h"
 #import "Person.h"
+#import "ButtonModel.h"
 #define kScoreBoardHeigh 100
 #define kScoreBoardWidh ZZN_UI_SCREEN_W - 30
 
 @protocol ScoreBoardViewDelegate <NSObject>
 
-- (void)clickBtnRefresh;
+- (void)clickBtnRefreshWith:(ButtonModel *)btnModel;
 
 @end
 
@@ -24,6 +25,6 @@
 
 @property(nonatomic,weak)id <ScoreBoardViewDelegate>delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame cellRow:(int)row board:(Board *)board;
+- (instancetype)initWithFrame:(CGRect)frame ArrowFrame:(CGRect)ArrowFrame cellRow:(int)row board:(Board *)board;
 
 @end

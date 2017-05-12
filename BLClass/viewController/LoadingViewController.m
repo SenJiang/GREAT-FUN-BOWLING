@@ -10,6 +10,7 @@
 #import "PlayViewController.h"
 #import "Masonry.h"
 #import "Person.h"
+#import "Manager.h"
 @interface LoadingViewController ()
 @property (nonatomic, strong)UILabel *label_loading;
 
@@ -81,17 +82,30 @@
 }
 - (void)setData
 {
-    NSMutableArray *boardArr = [NSMutableArray new];
+    NSMutableArray *boardArr1 = [NSMutableArray new];
+    NSMutableArray *boardArr2 = [NSMutableArray new];
+    NSMutableArray *boardArr3 = [NSMutableArray new];
+    NSMutableArray *boardArr4 = [NSMutableArray new];
     for (int i = 0; i<10; i++) {
-        Board *board = [[Board alloc]init];
-        board.resultScore = board.secondScore = board.firstScore = @"";
-        [boardArr addObject:board];
-
+        Board *board1 = [[Board alloc]init];
+        board1.resultScore = board1.secondScore = board1.firstScore = @"";
+        [boardArr1 addObject:board1];
+        Board *board2 = [[Board alloc]init];
+        board2.resultScore = board2.secondScore = board2.firstScore = @"";
+        [boardArr2 addObject:board2];
+        Board *board3 = [[Board alloc]init];
+        board3.resultScore = board3.secondScore = board3.firstScore = @"";
+        [boardArr3 addObject:board1];
+        Board *board4 = [[Board alloc]init];
+        board4.resultScore = board4.secondScore = board4.firstScore = @"";
+        [boardArr4 addObject:board4];
+        
     }
     
-    NSData *boadData = [NSKeyedArchiver archivedDataWithRootObject:boardArr];
-    [[NSUserDefaults standardUserDefaults]setObject:boadData forKey:@"STORAGE_boardData"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+     [[Manager sharedInstance] writeDataWithArray:boardArr1 andName:firstBoard];
+     [[Manager sharedInstance] writeDataWithArray:boardArr2 andName:secondBoard];
+     [[Manager sharedInstance] writeDataWithArray:boardArr3 andName:threeBoard];
+     [[Manager sharedInstance] writeDataWithArray:boardArr4 andName:fourBoard];
     
     NSMutableArray *personArr = [NSMutableArray new];
     for (int i = 0; i<4; i++) {
@@ -101,9 +115,12 @@
         person.total = @"";
         [personArr addObject:person];
     }
+    [[Manager sharedInstance] writeDataWithArray:personArr andName:STORAGE];
+#if 0
     NSData *personData = [NSKeyedArchiver archivedDataWithRootObject:personArr];
     [[NSUserDefaults standardUserDefaults]setObject:personData forKey:@"STORAGE_personData"];
     [[NSUserDefaults standardUserDefaults]synchronize];
+#endif
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

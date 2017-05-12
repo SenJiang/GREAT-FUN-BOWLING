@@ -16,6 +16,7 @@
 #import "ScoreCollectionViewCell.h"
 #import "TakePhotoViewController.h"
 #import "Manager.h"
+
 @interface ScoreboardViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property(nonatomic, strong)BLMainView *mainView;
@@ -91,18 +92,18 @@
     [self presentViewController:_imagePicker animated:YES completion:nil];
 }
 -(void)readDataSource{
+#if 0
     NSData *boardData = [[NSUserDefaults standardUserDefaults]objectForKey:@"STORAGE_boardData"];
     NSArray *boardArr = [NSKeyedUnarchiver unarchiveObjectWithData:boardData];
     [Manager sharedInstance].managerArr = boardArr;
-    
     
     NSData *personData = [[NSUserDefaults standardUserDefaults]objectForKey:@"STORAGE_personData"];
     self.dataSource = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
     
     Person *person = self.dataSource[0];
     person.socreData = [NSMutableArray arrayWithArray:boardArr];
-    
-    self.mainView.scoreArray = self.dataSource;
+#endif
+    self.mainView.scoreArray =  [[[Manager sharedInstance] getAllDataSource] mutableCopy];
 }
 -(void)setDatasource
 {

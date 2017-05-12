@@ -34,8 +34,6 @@
     self.tableView_mark.dataSource = self;
     self.tableView_mark.bounces = NO;
     self.tableView_mark.backgroundColor = ZZN_UI_RGB(35, 24, 23);
-    NSLog(@"frame===%@",NSStringFromCGRect(self.tableView_mark.frame));
-    NSLog(@"frame==%@",NSStringFromCGRect(self.frame));
     self.tableView_mark.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     self.tableView_mark.showsVerticalScrollIndicator = NO;
     self.tableView_mark.transform = CGAffineTransformMakeRotation(-M_PI / 2);
@@ -46,8 +44,6 @@
          [self.tableView_mark setFrame:CGRectMake(self.textfild_name.frame.size.width, 0, self.label_totalScore.frame.origin.x-self.textfild_name.frame.size.width, self.imageView_head.frame.size.height +self.imageView_head.frame.origin.y)];
         
     });
-   
-    NSLog(@"frame==%@",NSStringFromCGRect(self.tableView_mark.frame));
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageView_headAction)];
     [self.imageView_head addGestureRecognizer:tap];
@@ -109,13 +105,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.label_number.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
     cell.ceellHeight = self.imageView_head.frame.size.height;
-    NSLog(@"%@",NSStringFromCGRect(tableView.frame));
-    if (indexPath.row == 0) {
-        Board *board = self.person.socreData[indexPath.row];
-        cell.board = board;
-    }
-    
-    NSLog(@"dataSource == r%@",tableView.dataSource);
     return cell;
 
 }
@@ -128,19 +117,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Board *board = [Manager sharedInstance].managerArr[indexPath.row];
-    if (board.firstScore) {
-        [[ZZNUIManager sharedInstance]eidtShowFirstBlock:^{
-            
-        } secondBlock:^{
-            
-        } thirdBlock:^{
-            
-        }];
-        return;
-    }
+
     
+    CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
+    
+    
+    CGRect rect = [tableView convertRect:rectInTableView toView:[tableView superview]];
     if (self.tabVCellBlock) {
-        self.tabVCellBlock(self,(int)indexPath.row);
+        self.tabVCellBlock(self,rect,(int)indexPath.row);
     }
  
 }

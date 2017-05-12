@@ -12,6 +12,7 @@
 #import "Masonry.h"
 #import "Person.h"
 #import "ScoreBoardView.h"
+#import "Manager.h"
 @interface BLMainView ()<UICollectionViewDelegate,UICollectionViewDataSource,ScoreBoardViewDelegate>
 
 
@@ -22,11 +23,13 @@
 
 @property(nonatomic,assign)BOOL isShowButton;
 
+@property(nonatomic,assign) NSUInteger rowIndex;    // 当前横向点击的第几个cell
+@property(nonatomic,assign) NSUInteger columnIndex; // 当前纵向点击的第几个cell
 @end
 
 @implementation BLMainView
 
-
+//5686 5726 
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -68,10 +71,6 @@
 -(void)setScoreArray:(NSArray *)scoreArray
 {
     _scoreArray = scoreArray;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.collectionView reloadData];
-//    });
-    
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -100,25 +99,42 @@
     };
     
     //点击tableviewCell的回调
-    cell.tabVCellBlock = ^(ScoreCollectionViewCell *scorecell,int row){
+    
+    cell.tabVCellBlock = ^(ScoreCollectionViewCell *scoreCell ,CGRect frame,int row){
+        self.columnIndex = indexPath.row;
+        self.rowIndex = row;
             self.isShowButton = YES;
-                if (indexPath.row!=0) {
-                    //第二 三 四 个记分板好像没做
+            if (indexPath.row!=0) {
+                //第二 三 四 个记分板好像没做
+                return ;
+            }
+            
+            Person *person0 = [Manager sharedInstance].allPersonArr[self.columnIndex];
+            Board *board = person0.socreData[row];
+
+            if (board.areadyBall != 0) {
+                
+                [[ZZNUIManager sharedInstance]eidtShowFirstBlock:^{
                     
-                    return ;
-                }
-                [self.scoreViewBut removeFromSuperview];
-                [self.buttonContro removeFromSuperview];
+                } secondBlock:^{
+                    if (board.firstScore.intValue == 6) {
+                        return ;
+                    }
+                } thirdBlock:^{
+                    
+                }];
+                return;
+                
+
+            }else{
                 self.buttonContro = [[UIControl alloc]initWithFrame:self.frame];
                 [self.buttonContro addTarget:self action:@selector(hideButtonView) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:self.buttonContro];
-        
-                Person *person0 = ( Person *)self.scoreArray[0];
-                Board *board = person0.socreData[row];
-        
-                self.scoreViewBut = [[ScoreBoardView alloc]initWithFrame:scorecell.frame cellRow:row board:board];
+                self.scoreViewBut = [[ScoreBoardView alloc]initWithFrame:scoreCell.frame ArrowFrame:frame  cellRow:row board:board];
                 [self.buttonContro addSubview:self.scoreViewBut];
-                
+                self.scoreViewBut.delegate = self;
+            }
+#if 0
                 __weak typeof(self)weakSelf = self;
                 self.scoreViewBut.boardBtnCall = ^(int score){
                     __strong typeof(weakSelf)self = weakSelf;
@@ -128,7 +144,7 @@
                     //数据存取
                     [self reload];
                 };
-
+#endif
     };
     return cell;
 }
@@ -163,10 +179,6 @@
     return CGSizeMake(ZZN_UI_SCREEN_W-20, (self.frame.size.height-self.frame.origin.y-35-30)/4);
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-
-}
 - (void)reload{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
@@ -176,10 +188,9 @@
 
 - (void)hideButtonView
 {
-    if (self.isShowButton) {
-        self.scoreViewBut.hidden = YES;
-        self.buttonContro.hidden = YES;
-    }
+    [self.scoreViewBut removeFromSuperview];
+    self.scoreViewBut.delegate = nil;
+    [self.buttonContro removeFromSuperview];
 }
 - (void)showButtonView{
     if (self.isShowButton) {
@@ -189,20 +200,128 @@
 }
 
 #pragma mark - ScoreBoardViewDelegate
-- (void)clickBtnRefresh{
+- (void)clickBtnRefreshWith:(ButtonModel *)btnModel{
+    
+    //写数据
+    {
+        Person * per = self.scoreArray[self.columnIndex];
+        Board * ball =  per.socreData[btnModel.row];
+        ball.areadyBall --;
+        ball.type = btnModel.buttonTag;
+        
+        // 记分规则
+        [self caculateScore:^{
+            
+        }];
+        // UI刷新
+    }
+    
+    self.scoreViewBut.delegate = nil;
     [self.scoreViewBut removeFromSuperview];
     [self.buttonContro removeFromSuperview];
     
-    self.buttonContro = [[UIControl alloc]initWithFrame:self.frame];
-    [self.buttonContro addTarget:self action:@selector(hideButtonView) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.buttonContro];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.buttonContro = [[UIControl alloc]initWithFrame:self.frame];
+        [self.buttonContro addTarget:self action:@selector(hideButtonView) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.buttonContro];
+        self.scoreViewBut = [[ScoreBoardView alloc]initWithFrame:btnModel.cellFrame   ArrowFrame:btnModel.arrowFrame  cellRow:btnModel.row board:btnModel.board];
+        self.scoreViewBut.delegate = self;
+        [self.buttonContro addSubview:self.scoreViewBut];
+
+    });
     
-    Person *person0 = ( Person *)self.scoreArray[0];
-    
-//    self.scoreViewBut = [[ScoreBoardView alloc]initWithFrame:scorecell.frame cellRow:row board:board];
-    [self.buttonContro addSubview:self.scoreViewBut];
     
 
+}
+
+- (void)caculateScore:(void(^)())res
+{
+    Person * per = self.scoreArray[self.columnIndex];
+    Board * ball =  per.socreData[_rowIndex];
+    
+    
+    for (int i = 0; i <per.socreData.count ; i ++) {
+        Board * b = per.socreData[i];
+        if (b.areadyBall == 0) {
+            break;
+        }
+        else if (b.areadyBall == 1) {
+            b.firstScore = [NSString stringWithFormat:@"%d", b.type];
+        }
+        else if (b.type == 0) {
+            b.secondScore = [NSString stringWithFormat:@"%d", b.type];
+        }
+        
+        [self caculateTotalScore:i];
+    }
+    if(res)res;
+}
+
+- (void)caculateTotalScore:(int)index
+{
+    Person * per = [Manager sharedInstance].allPersonArr[self.columnIndex];
+    Board * b =  per.socreData[index];
+    
+    if (b.areadyBall == 1)
+    {
+        if (b.firstScore.intValue == 6) { // x
+            b.needNumber = 2;
+            b.resultScore = nil;
+            
+            Board * b_ = per.socreData[index+1];
+            if (b_.areadyBall == 2)
+            {
+                if (b_.secondScore.intValue == 7) {
+                    b.resultScore = [NSString stringWithFormat:@"12"];
+                }
+                else
+                {
+                    b.resultScore = [NSString stringWithFormat:@"%d", 6 + b_.firstScore.intValue + b_.secondScore.intValue];
+                }
+            }else if (b_.areadyBall == 1)
+            {
+                Board * b__ = per.socreData[index+2];
+                if (!b__.firstScore) {
+                    b.resultScore = nil;
+                }else
+                    b.resultScore = [NSString stringWithFormat:@"%d", b.firstScore.intValue + b_.firstScore.intValue + b__.firstScore.intValue];
+            }else {
+                b.resultScore = nil;
+            }
+            
+        } else if (b.firstScore.intValue == 7)
+        {
+            b.needNumber = 1;
+            Board * b__ = per.socreData[index+2];
+            if (!b__.firstScore) {
+                b.resultScore = nil;
+            }else
+                b.resultScore = [NSString stringWithFormat:@"%d", b.firstScore.intValue + b__.firstScore.intValue];
+        }else {
+            b.resultScore = nil;
+        }
+    }else if(b.areadyBall == 2)
+    {
+        // 第二球不可能为x，最好的情况只能补分
+        if (b.secondScore.intValue == 7) {
+            b.needNumber = 1;
+            Board * b__ = per.socreData[index+2];
+            if (!b__.firstScore) {
+                b.resultScore = nil;
+            }else
+                b.resultScore = [NSString stringWithFormat:@"%d", 6 + b__.firstScore.intValue];
+        }
+        else {
+            b.resultScore = [NSString stringWithFormat:@"%d", b.firstScore.intValue + b.secondScore.intValue];;
+        }
+    }else
+    {
+        b.resultScore = nil;
+    }
+    if (b.resultScore) {
+        per.total = b.resultScore;
+    }
+    NSLog(@"b.score == %@",b.resultScore);
 }
 /*
 // Only override drawRect: if you perform custom drawing.

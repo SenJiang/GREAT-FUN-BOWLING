@@ -17,6 +17,12 @@
 
 @property (nonatomic,copy)NSString *resultScore;
 
+@property (nonatomic, assign)int areadyBall ;  // 012
+@property (nonatomic, assign)int needNumber ;  // 012
+@property (nonatomic, assign)int type ;  // 01234567(x/) 
+
+
+
 @end
 
 @interface Person : NSObject<NSCopying,NSCoding>
@@ -27,6 +33,7 @@
 
 @property (nonatomic, copy)NSString *total;
 
-@property (nonatomic, strong)NSMutableArray *socreData;
+
+@property (nonatomic, strong)NSMutableArray<Board *> *socreData;
 
 @end

@@ -24,6 +24,8 @@
         self.firstScore = [aDecoder decodeObjectForKey:@"firstScore"];
         self.secondScore = [aDecoder decodeObjectForKey:@"secondScore"];
         self.resultScore = [aDecoder decodeObjectForKey:@"resultScore"];
+        self.areadyBall = 0;
+        self.needNumber = 0;
     }
     return self;
 }

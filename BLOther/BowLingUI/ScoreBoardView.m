@@ -13,6 +13,8 @@
 
 @property (nonatomic, assign)CGRect cellFrame;
 
+@property (nonatomic, assign)CGRect arrowFrame;
+
 @property (nonatomic, strong)UIImageView *backimageView;
 
 @property (nonatomic, strong)Board *board;
@@ -20,22 +22,31 @@
 @property (nonatomic, assign)int row;
 
 @property (nonatomic, strong)NSMutableArray *butArr;
+
+@property (nonatomic, strong)ButtonModel *btnModel;
 @end
 
 @implementation ScoreBoardView
 -(NSMutableArray *)butArr{
-    if (_butArr) {
+    if (!_butArr) {
         _butArr = [[NSMutableArray alloc]init];
     }
     return _butArr;
 }
+-(ButtonModel *)btnModel{
+    if (!_btnModel) {
+        _btnModel = [ButtonModel new];
+    }
+    return _btnModel;
+}
 
-- (instancetype)initWithFrame:(CGRect)frame cellRow:(int)row board:(Board *)board
+- (instancetype)initWithFrame:(CGRect)frame ArrowFrame:(CGRect)ArrowFrame cellRow:(int)row board:(Board *)board
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.cellFrame = frame;
         self.board = board;
+        self.arrowFrame = ArrowFrame;
         self.row = row;
         [self initUIWithFrame];
         self.backgroundColor = [UIColor clearColor];
@@ -49,8 +60,9 @@
         backimageView.userInteractionEnabled = YES;
         backimageView.image = [UIImage imageNamed:@"ico_input_score_bg"];
         [self addSubview:backimageView];
-        
-        UIImageView *arrowView = [[UIImageView alloc]initWithFrame:CGRectMake(100, 0, 15, 100)];
+    
+        //箭头
+        UIImageView *arrowView = [[UIImageView alloc]initWithFrame:CGRectMake(self.arrowFrame.origin.x, 0, 15, 100)];
         arrowView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(arrowViewAction)];
         arrowView.contentMode = UIViewContentModeScaleToFill;
@@ -73,8 +85,6 @@
             [btn addTarget:self action:@selector(jump:) forControlEvents:UIControlEventTouchUpInside];
             [backimageView addSubview:btn];
             
-            
-            
             if (self.board.firstScore == 0) {
                 btn.selected = YES;
             }
@@ -89,9 +99,30 @@
 }
 -(void)jump:(UIButton *)button
 {
+    self.btnModel.cellFrame = self.cellFrame;
+    CGRect Arrowframe = self.arrowFrame;
+    if (self.arrowFrame.origin.x + Arrowframe.size.width/2>ZZN_UI_SCREEN_W/2) {
+         Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
+    }else{
+         Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
+    }
+   
+    if (self.arrowFrame.origin.x>ZZN_UI_SCREEN_W/2){
+        Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
+
+    }
+    self.btnModel.arrowFrame = Arrowframe;
+    self.btnModel.buttonTag = (int)button.tag;
+    if (self.board.secondScore) {
+         self.btnModel.row = self.row+1;
+    }else{
+        self.btnModel.row = self.row;
+    }
+   
+    self.btnModel.board = self.board;
+    [self.delegate clickBtnRefreshWith:self.btnModel];
     
-    [self.delegate clickBtnRefresh];
-    
+    return;
     //是否还能下一个
     if (!self.board.firstScore&&!self.board.secondScore) {
         //重新刷新
@@ -131,7 +162,8 @@
 }
 - (void)arrowViewAction
 {
-    self.hidden = YES;
+    [self removeFromSuperview];
+    self.delegate = nil;
     
 }
 -(void)dealloc{

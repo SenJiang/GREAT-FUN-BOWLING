@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A33A61ED1EC4C456002D53A2 /* ButtonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A33A61EC1EC4C456002D53A2 /* ButtonModel.m */; };
 		A36C0E281EB8C58A002C73BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E271EB8C58A002C73BD /* main.m */; };
 		A36C0E2B1EB8C58A002C73BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E2A1EB8C58A002C73BD /* AppDelegate.m */; };
 		A36C0E331EB8C58A002C73BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36C0E321EB8C58A002C73BD /* Assets.xcassets */; };
@@ -58,6 +59,8 @@
 /* Begin PBXFileReference section */
 		298F576D24C9E377DCAA4B45 /* libPods-GREAT FUN BOWLING.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GREAT FUN BOWLING.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B102912469B05E001468D0A /* Pods-GREAT FUN BOWLING.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GREAT FUN BOWLING.release.xcconfig"; path = "Pods/Target Support Files/Pods-GREAT FUN BOWLING/Pods-GREAT FUN BOWLING.release.xcconfig"; sourceTree = "<group>"; };
+		A33A61EB1EC4C456002D53A2 /* ButtonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonModel.h; sourceTree = "<group>"; };
+		A33A61EC1EC4C456002D53A2 /* ButtonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonModel.m; sourceTree = "<group>"; };
 		A36C0E231EB8C58A002C73BD /* GREAT FUN BOWLING.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GREAT FUN BOWLING.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36C0E271EB8C58A002C73BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A36C0E291EB8C58A002C73BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 				A36C0EE41EBD6F86002C73BD /* Person.m */,
 				A3E432031EC379EE00FAB89F /* Manager.h */,
 				A3E432041EC379EE00FAB89F /* Manager.m */,
+				A33A61EB1EC4C456002D53A2 /* ButtonModel.h */,
+				A33A61EC1EC4C456002D53A2 /* ButtonModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -247,10 +252,10 @@
 				A36C0E731EB8D295002C73BD /* LoadingViewController.m */,
 				A36C0E751EB8D2BD002C73BD /* PlayViewController.h */,
 				A36C0E761EB8D2BD002C73BD /* PlayViewController.m */,
-				A3E431FF1EBF742400FAB89F /* TakePhotoViewController.h */,
-				A3E432001EBF742400FAB89F /* TakePhotoViewController.m */,
 				A36C0E7B1EB8E247002C73BD /* ScoreboardViewController.h */,
 				A36C0E7C1EB8E247002C73BD /* ScoreboardViewController.m */,
+				A3E431FF1EBF742400FAB89F /* TakePhotoViewController.h */,
+				A3E432001EBF742400FAB89F /* TakePhotoViewController.m */,
 			);
 			path = viewController;
 			sourceTree = "<group>";
@@ -500,6 +505,7 @@
 				A36C0E691EB8D26E002C73BD /* NSObject+Extension.m in Sources */,
 				A3E431FA1EBDDF8A00FAB89F /* ScoreBoardView.m in Sources */,
 				A36C0E771EB8D2BD002C73BD /* PlayViewController.m in Sources */,
+				A33A61ED1EC4C456002D53A2 /* ButtonModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

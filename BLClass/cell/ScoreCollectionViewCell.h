@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageView_head_Constraint;
 @property (copy, nonatomic) void(^cellBlock)(ScoreCollectionViewCell * ,int);
 
-@property (copy, nonatomic) void(^tabVCellBlock)(ScoreCollectionViewCell * ,int);//row
+@property (copy, nonatomic) void(^tabVCellBlock)(ScoreCollectionViewCell *,CGRect  ,int);//row
 
 @property (nonatomic, strong) NSArray *dataSource;
 
