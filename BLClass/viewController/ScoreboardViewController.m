@@ -17,6 +17,8 @@
 #import "TakePhotoViewController.h"
 #import "Manager.h"
 
+
+
 @interface ScoreboardViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property(nonatomic, strong)BLMainView *mainView;
@@ -26,6 +28,8 @@
 @property(nonatomic, strong)UIImagePickerController *imagePicker;
 
 @property(nonatomic, strong)ScoreCollectionViewCell *scoreCell;
+
+@property(nonatomic, strong)UIImageView *showGreatImageView;
 
 @property(nonatomic ,assign)int indexPx;//第几个cell
 
@@ -41,6 +45,10 @@
     }
     return _dataSource;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    self.view.hidden = NO;
+}
 -(void)dealloc{
     
 }
@@ -55,14 +63,22 @@
 - (void)initMainView
 {
     self.mainView = [[BLMainView alloc]initWithFrame:CGRectMake(5, 44, ZZN_UI_SCREEN_W, ZZN_UI_SCREEN_H - 44)];
-    
     [self.view addSubview:self.mainView];
     
+    //打得好
+    self.showGreatImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
+    self.showGreatImageView.hidden = YES;
+    self.showGreatImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showImageViewAction)];
+    [self.showGreatImageView addGestureRecognizer:tap];
+    [self.view addSubview:self.showGreatImageView];
+    
+    //系统相册类
     self.imagePicker = [[UIImagePickerController alloc]init];
     self.imagePicker.delegate = self;
     
     __weak typeof(self)weakSelf = self;
-    
+    //拍照或者拍摄
     self.mainView.photoBlock = ^(ScoreCollectionViewCell *soreCell,int index,int select){
         
         // select = 1 是去相册，2 是拍照
@@ -77,8 +93,21 @@
         }else{
             [self getSystemCamera];
         }
-        
     };
+    
+    //show 图
+    self.mainView.greatShowCall = ^(int showIndex){
+        __strong typeof(weakSelf)self = weakSelf;
+        if (showIndex == bravo) {
+            self.showGreatImageView.image = [UIImage imageNamed:@"bravo_bg.jpg"];
+            self.showGreatImageView.hidden = NO;
+        }else if (showIndex == game_end){
+            self.showGreatImageView.image = [UIImage imageNamed:@"game_end_bg.jpg"];
+            self.showGreatImageView.hidden = NO;
+        }
+    };
+    
+    
 }
 //TODO:打开系统相册
 - (void)getSystemPhoto
@@ -92,17 +121,6 @@
     [self presentViewController:_imagePicker animated:YES completion:nil];
 }
 -(void)readDataSource{
-#if 0
-    NSData *boardData = [[NSUserDefaults standardUserDefaults]objectForKey:@"STORAGE_boardData"];
-    NSArray *boardArr = [NSKeyedUnarchiver unarchiveObjectWithData:boardData];
-    [Manager sharedInstance].managerArr = boardArr;
-    
-    NSData *personData = [[NSUserDefaults standardUserDefaults]objectForKey:@"STORAGE_personData"];
-    self.dataSource = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
-    
-    Person *person = self.dataSource[0];
-    person.socreData = [NSMutableArray arrayWithArray:boardArr];
-#endif
     self.mainView.scoreArray =  [[[Manager sharedInstance] getAllDataSource] mutableCopy];
 }
 -(void)setDatasource
@@ -166,9 +184,6 @@
    
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.scoreCell.imageView_head.image = image;
-    });
     
     
 }
@@ -176,10 +191,7 @@
 - (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo{
     if (!error) {
         NSLog(@"存储成功");
-         [self setDatasource];
-        [self showAlertIndictorWithMessage:@"存储照片成功" withDelay:1];
     } else {
-        [self showAlertIndictorWithMessage:@"存储照片失败" withDelay:1];
         NSLog(@"存储失败：%@", error);
     }
 }
@@ -187,59 +199,17 @@
 - (void) saveImage:(UIImage *)currentImage {
     //设置照片的品质
     NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
-    
-    NSLog(@"%@",NSHomeDirectory());
     // 获取沙盒目录
     NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/bowling%d.png",self.indexPx]];
-    
-    NSLog(@"%@",filePath);
     // 将图片写入文件
     [imageData writeToFile:filePath atomically:YES];
-    /*************** plit *********************/
-#if 0
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"List" ofType:@"plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    NSLog(@"%@", data);
-    
-    //添加一项内容
-    [data setObject:@"add some content" forKey:@"c_key"];
-    
-    //获取应用程序沙盒的Documents目录
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString *plistPath1 = [paths objectAtIndex:0];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"List" ofType:@"plist"];
-    
-    NSArray *info = [NSArray arrayWithContentsOfFile:path];
     
     
-    for (NSDictionary *dic in info) {
-        Person *person = [Person new];
-        person.name = dic[@"name"];
-        NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/bowling%d.png",[dic[@"number"] intValue]]];
-        person.image = [UIImage imageWithContentsOfFile:filePath];
-        person.total = dic[@"total"];
-        
-        for (NSDictionary *dic2 in dic[@"board"]) {
-            Board *board = [Board new];
-            board.firstScore = [dic2[@"first"] intValue];
-            board.secondScore = [dic2[@"Second"] intValue];
-            board.firstScore = [dic2[@"result"] intValue];
-            [person.socreData addObject:board];
-        }
-        
-        [self.dataSource addObject:person];
-        
-    }
-    
-    
-    //得到完整的文件名
-    NSString *filename=[plistPath1 stringByAppendingPathComponent:@"test.plist"];
-    //输入写入
-    [data writeToFile:filename atomically:YES];
-    
-    
-#endif
+    NSLog(@"imagePath==%@",filePath);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.mainView.collectionView reloadData];
+        //刷新列表
+    });
     
 }
 - (void)popAlertView
@@ -253,11 +223,20 @@
     } firstBlock:^{
         TakePhotoViewController *vc = [TakePhotoViewController new];
          __strong typeof(weakself)self = weakself;
+        self.view.hidden = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } secondBlock:^{
-        [[ZZNUIManager sharedInstance] showThreeSelectAlert:nil firstTitle:@"" secondTitle:@"" thirdTitle:@"" firstBlock:^{
+        __weak typeof(self)weakself = self;
+        [[ZZNUIManager sharedInstance] showThreeSelectAlert:nil firstTitle:@"clear score" secondTitle:@"clear all" thirdTitle:@"cancel" firstBlock:^{
+             __strong typeof(weakself)self = weakself;
+            self.mainView.scoreArray = [[Manager sharedInstance] removeAllScore];
+            [self.mainView reload];
+            
         } secondBlock:^{
-        
+            __strong typeof(weakself)self = weakself;
+            self.mainView.scoreArray = [[Manager sharedInstance] removeAllScoreAndAllPhotos];
+            [self.mainView reload];
+            
         } thirdBlock:^{
             
         }];
@@ -275,6 +254,10 @@
     //写入相册
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
 }
+- (void)showImageViewAction{
+    self.showGreatImageView.hidden  = YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

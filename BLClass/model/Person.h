@@ -17,6 +17,10 @@
 
 @property (nonatomic,copy)NSString *resultScore;
 
+@property (nonatomic, copy)NSString *firstFinish ;
+
+@property (nonatomic, copy)NSString *secondFinish  ;
+
 @property (nonatomic, assign)int areadyBall ;  // 012
 @property (nonatomic, assign)int needNumber ;  // 012
 @property (nonatomic, assign)int type ;  // 01234567(x/) 

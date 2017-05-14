@@ -31,8 +31,13 @@
     _board = board;
     self.label_score_first.text = board.firstScore;
     self.label_score_second.text = board.secondScore;
-
-    self.label_score_total.text = [NSString stringWithFormat:@"%d",[board.firstScore intValue]+[board.secondScore intValue]];
+    if (board.firstScore.intValue == 6) {
+        self.label_score_first.text = @"X";
+    }
+    if (board.secondScore.intValue == 7) {
+        self.label_score_second.text = @"／";
+    }
+    self.label_score_total.text = board.resultScore;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

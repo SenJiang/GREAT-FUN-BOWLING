@@ -78,18 +78,22 @@
     _person = person;
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        UIImage *image = [UIImage imageWithContentsOfFile:person.image];
+        UIImage *image = [UIImage imageWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/bowling%d.png",person.image.intValue]]];
         if (image) {
             self.imageView_head.image = image;
         }else{
             self.imageView_head.image = [UIImage imageNamed:@"ico_boll.jpg"];
         }
-        self.imageView_head.contentMode = UIViewContentModeRedraw;
+//        self.imageView_head.contentMode = UIViewContentModeRedraw;
         self.textfild_name.text = person.name;
         
         self.label_totalScore.text = person.total;
         
     });
+}
+-(void)setDataSource:(NSArray *)dataSource{
+    _dataSource = dataSource;
+    [self.tableView_mark reloadData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -105,6 +109,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.label_number.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
     cell.ceellHeight = self.imageView_head.frame.size.height;
+    cell.board = self.dataSource[indexPath.row];
     return cell;
 
 }
@@ -116,9 +121,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Board *board = [Manager sharedInstance].managerArr[indexPath.row];
-
-    
+        
     CGRect rectInTableView = [tableView rectForRowAtIndexPath:indexPath];
     
     

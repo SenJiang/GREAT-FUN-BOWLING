@@ -13,6 +13,8 @@ typedef void(^PhotoBlock)(ScoreCollectionViewCell *,int , int);
 @interface BLMainView : UIView
 @property (nonatomic , copy)PhotoBlock photoBlock;
 
+@property (nonatomic, copy)void (^greatShowCall)(int);
+
 @property(nonatomic ,strong)UICollectionView *collectionView;
 
 @property (nonatomic , strong)NSArray *scoreArray;

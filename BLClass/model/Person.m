@@ -15,6 +15,8 @@
     board.firstScore = [self.firstScore copyWithZone:zone];
     board.secondScore = [self.secondScore copyWithZone:zone];
     board.resultScore = [self.resultScore copyWithZone:zone];
+    board.firstFinish = [self.firstFinish copyWithZone:zone];
+    board.firstFinish = [self.secondFinish copyWithZone:zone];
     return board;
 }
 
@@ -24,16 +26,19 @@
         self.firstScore = [aDecoder decodeObjectForKey:@"firstScore"];
         self.secondScore = [aDecoder decodeObjectForKey:@"secondScore"];
         self.resultScore = [aDecoder decodeObjectForKey:@"resultScore"];
-        self.areadyBall = 0;
-        self.needNumber = 0;
+        self.firstFinish = [aDecoder decodeObjectForKey:@"firstFinish"];
+        self.secondFinish = [aDecoder decodeObjectForKey:@"secondFinish"];
+
     }
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.firstScore forKey:@"name"];
-    [aCoder encodeObject:self.secondScore forKey:@"age"];
-    [aCoder encodeObject:self.resultScore forKey:@"array"];
+    [aCoder encodeObject:self.firstScore forKey:@"firstScore"];
+    [aCoder encodeObject:self.secondScore forKey:@"secondScore"];
+    [aCoder encodeObject:self.resultScore forKey:@"resultScore"];
+    [aCoder encodeObject:self.firstFinish forKey:@"firstFinish"];
+    [aCoder encodeObject:self.secondFinish forKey:@"secondFinish"];
 }
 @end
 @implementation Person
@@ -43,6 +48,7 @@
     person.name = [self.name copyWithZone:zone];
     person.image = [self.image copyWithZone:zone];
     person.total = [self.total copyWithZone:zone];
+
     return person;
 }
 

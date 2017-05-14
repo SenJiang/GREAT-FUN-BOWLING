@@ -26,6 +26,11 @@
     [self initUI];
     [self getSystemCamera];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.view.hidden = NO;
+}
 - (void)initUI
 
 {
@@ -65,10 +70,13 @@
     self.imagePicker = [[UIImagePickerController alloc]init];
     self.imagePicker.delegate = self;
 
-    
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.view.hidden = YES;
     [self presentViewController:self.imagePicker animated:YES completion:nil];
+    
 }
+
+#pragma mark - Action
 - (void)back
 {
     [self.navigationController popViewControllerAnimated:YES];

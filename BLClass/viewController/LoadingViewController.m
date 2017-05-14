@@ -28,7 +28,6 @@
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstBowling"]) {
         [self setData];
-    }else{
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstBowling"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -110,7 +109,7 @@
     NSMutableArray *personArr = [NSMutableArray new];
     for (int i = 0; i<4; i++) {
         Person *person = [[Person alloc]init];
-        person.image = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/bowling%d.png",i]];
+        person.image = [NSString stringWithFormat:@"%d",i];
         person.name = [NSString stringWithFormat:@"P%d",i+1];
         person.total = @"";
         [personArr addObject:person];

@@ -76,9 +76,14 @@
         [backimageView addSubview:view];
         [view addGestureRecognizer:tap];
     
+    
+        CGFloat y = self.frame.size.height -(self.frame.size.height-btnHeight)+1;
+        if (ZZN_UI_SCREEN_W<350) {
+           y = self.frame.size.height -(self.frame.size.height-btnHeight) + btnHeight/2-2;
+        }
         for (int i = 0; i<8; i++) {
             UIButton *btn = [[UIButton alloc]init];
-            btn.frame = CGRectMake(btnHeight*i + 10, self.frame.size.height -(self.frame.size.height-btnHeight)+1, btnHeight , btnHeight);
+            btn.frame = CGRectMake(btnHeight*i + 10, y, btnHeight , btnHeight);
             [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"ico_b%dp",i]] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"ico_b%d",i]] forState:UIControlStateSelected];
             
@@ -111,14 +116,10 @@
         Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
 
     }
+    
     self.btnModel.arrowFrame = Arrowframe;
     self.btnModel.buttonTag = (int)button.tag;
-    if (self.board.secondScore) {
-         self.btnModel.row = self.row+1;
-    }else{
-        self.btnModel.row = self.row;
-    }
-   
+    self.btnModel.row = self.row;
     self.btnModel.board = self.board;
     [self.delegate clickBtnRefreshWith:self.btnModel];
     
@@ -147,7 +148,7 @@
             btn.selected = YES;
             if (i==7) {
                 btn.selected = NO;
-                 btn.userInteractionEnabled = NO;
+                btn.userInteractionEnabled = NO;
             }
         }
     }else{

@@ -152,6 +152,10 @@
         [self addSubview:self.thirdButton];
         self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
         
+        UIView *line5 = [[UIView alloc] initWithFrame:CGRectMake(0, btnHeight*5, kNewGameAlertWidth, 1)];
+        line5.backgroundColor = ZZN_UI_COLOR_BLACK;
+        [self addSubview:line5];
+        
         self.leftBlock = leftBlock;
         self.rightBlock = rightBlock;
         self.thirdBlock = thirdBlock;
@@ -262,9 +266,6 @@
             self.thirdButton.frame = thirdbtnFrame;
         }
         
-       
-//        [self.alertButton setTitle:title forState:UIControlStateNormal];
-        //[self.rightbtn setTitle:rigthTitle forState:UIControlStateNormal];
         [self.leftbtn setTitle:leftTitle forState:UIControlStateNormal];
 //        [self.thirdButton setTitle:thirdTittle forState:UIControlStateNormal];
         //self.alertButton.titleLabel.font = self.leftbtn.titleLabel.font = self.rightbtn.titleLabel.font = self.thirdButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
