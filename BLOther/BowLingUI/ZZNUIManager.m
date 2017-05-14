@@ -161,7 +161,11 @@ CFTimeInterval const ZZNAnimationDuration_0d25 = 0.25;
     [alter showNewGame];
     
 }
-
+//edit show 三个分选择
+- (void)eidtShowFirstBlock:(void(^)(void))firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock threeBlock:(void(^)())threeBlock{
+    ZZNAlterView *alter = [[ZZNAlterView alloc] initWithleftBlock:firstBlock rightBlock:secondBlock thirdBlock:thirdBlock alertBlock:threeBlock];
+    [alter showNewGame];
+}
 
 //弹出操作提示
 - (void)showAlertSelect:(NSString *)msg leftTitle:(NSString*)leftTitle rightTitle:(NSString*)rightTitle leftBlock:(void(^)(void))leftBlock rightBlock:(void(^)(void))rightBlock{

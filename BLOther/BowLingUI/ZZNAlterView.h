@@ -40,7 +40,9 @@
 - (id)initWithleftBlock:(void(^)())leftBlock
          rightBlock:(void(^)())rightBlock thirdBlock:(void(^)())thirdBlock;
 
-
+//Edit alert 4个
+- (id)initWithleftBlock:(void(^)())leftBlock
+             rightBlock:(void(^)())rightBlock thirdBlock:(void(^)())thirdBlock alertBlock:(void(^)())alertBlock;
 - (void)show;
 - (void)showThree;
 - (void)showButton;

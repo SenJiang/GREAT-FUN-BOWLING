@@ -128,6 +128,10 @@ button;\
 //edit show
 - (void)eidtShowFirstBlock:(void(^)(void))firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock;
 
+
+//edit show 三个分选择
+- (void)eidtShowFirstBlock:(void(^)(void))firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock threeBlock:(void(^)())threeBlock;
+
 //
 - (void)showAlertSelect:(NSString *)msg leftTitle:(NSString*)leftTitle rightTitle:(NSString*)rightTitle leftBlock:(void(^)(void))leftBlock rightBlock:(void(^)(void))rightBlock;
 

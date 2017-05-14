@@ -104,10 +104,21 @@
             }else{
                 //第二记球的展示
                 btn.selected = YES;
-                if ((i==6 || i>(5- self.board.firstScore.intValue))&&i!=7) {
-                    btn.selected = NO;
-                    btn.userInteractionEnabled = NO;
+                if (self.row == 9 &&  self.board.firstScore.intValue == 6) {
+                    //最后一场打第一分 为X的情况
+                    if (i==7) {
+                        btn.selected = NO;
+                        btn.userInteractionEnabled = NO;
+                    }
+                   
+                }else{
+                    if ((i==6 || i>(5- self.board.firstScore.intValue))&&i!=7) {
+                        btn.selected = NO;
+                        btn.userInteractionEnabled = NO;
+                    }
+                
                 }
+                
             }
             
             btn.tag=i;
@@ -118,17 +129,24 @@
 {
     self.btnModel.cellFrame = self.cellFrame;
     CGRect Arrowframe = self.arrowFrame;
-    if ((self.arrowFrame.origin.x + Arrowframe.size.width/2>ZZN_UI_SCREEN_W/2)&&self.row<=8) {
+    if ((self.arrowFrame.origin.x + Arrowframe.size.width/2>ZZN_UI_SCREEN_W/2)&&self.row<8) {
          Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
     }else{
        
+//        if (self.row != 9){
              Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
+//        }
+        
         
     }
     
-//    if (self.row>=8) {
-//        Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
-//    }
+    if (self.row>=8 && (self.arrowFrame.origin.x + Arrowframe.size.width/2<ZZN_UI_SCREEN_W/2)) {
+        Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
+    }
+    if (self.row == 8 && [self.board.firstFinish isEqualToString:@"yes"]){
+        Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
+    }
+    
     self.btnModel.arrowFrame = Arrowframe;
     self.btnModel.buttonTag = (int)button.tag;
     self.btnModel.row = self.row;

@@ -119,23 +119,45 @@
         
         Person *person0 = [Manager sharedInstance].allPersonArr[self.columnIndex];
         Board *board = person0.socreData[row];
-        if (row>0&&row<9) {
+        if (row>0) {
             //上一个没完成且下一个为空不能点击后面的
             Board *boardFront = person0.socreData[row-1];
-            Board *boardLast = person0.socreData[row+1];
-            if (![boardFront.secondFinish isEqualToString:@"yes"] &&![boardLast.secondFinish isEqualToString:@""]) {
-                return;
+            
+            if (row>=9) {
+                if (![boardFront.secondFinish isEqualToString:@"yes"] ) {
+                    return;
+                }
+            }else{
+                Board *boardLast = person0.socreData[row+1];
+                if (![boardFront.secondFinish isEqualToString:@"yes"] &&![boardLast.secondFinish isEqualToString:@""]) {
+                    return;
+                }
             }
+            
         }
         
         if ([board.firstFinish isEqualToString:@"yes"]) {
             
+            if (row==9) {
+                [[ZZNUIManager sharedInstance] eidtShowFirstBlock:^{
+                    [self click:1 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];
+                } secondBlock:^{
+                     [self click:2 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];
+                } thirdBlock:^{
+                    //cancel
+                } threeBlock:^{
+                    [self click:3 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];
+                }];
+                
+                return;
+            }
+            
             [[ZZNUIManager sharedInstance]eidtShowFirstBlock:^{
                
-            [self click:1 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];
-                
+                [self click:1 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];
             } secondBlock:^{
-                [self click:2 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];                } thirdBlock:^{
+                [self click:2 WithScoreButtonView:scoreCell.frame Arrowframe:frame cellRow:row board:board];
+            } thirdBlock:^{
                 
             }];
             return;
@@ -210,15 +232,23 @@
     if (select == 1) {
         //清空第一个
         ball.firstScore = @"";
-        
+        ball.areadyBall = 0;
         ball.firstFinish = @"";
-       
-    }else{
+        ball.secondScore = @"";
+        ball.secondFinish = @"";
+        ball.resultScore = @"";
+    }else if(select == 2){
         ball.areadyBall = 1;
+        ball.secondScore = @"";
+        ball.secondFinish = @"";
+        ball.resultScore = @"";
+    }else{
+        ball.areadyBall = 2;
+        ball.threeScore = @"";
+        ball.secondFinish = @"";
+        ball.resultScore = @"";
     }
-    ball.secondScore = @"";
-    ball.secondFinish = @"";
-    ball.resultScore = @"";
+    
     NSString *storeName = @"";
     if (self.columnIndex == 0) {
         storeName = firstBoard;
@@ -261,6 +291,7 @@
 }
 
 #pragma mark - ScoreBoardViewDelegate
+BOOL isX = NO;
 - (void)clickBtnRefreshWith:(ButtonModel *)btnModel{
     
     //不能大于10个
@@ -270,6 +301,7 @@
     //干得漂亮
     if (btnModel.buttonTag == bravo) {
         if (self.greatShowCall) {
+            isX = YES;
             self.greatShowCall(bravo);
         }
     }else if (btnModel.buttonTag == good_job){
@@ -291,12 +323,14 @@
             ball.firstFinish = @"yes";
         }
     }else{
+        
         //第二次打完球 记分
         ball.secondScore = [NSString stringWithFormat:@"%d",btnModel.buttonTag];
         ball.secondFinish = @"yes";
         ball.resultScore = [NSString stringWithFormat:@"%d",ball.firstScore.intValue + ball.secondScore.intValue];
-        
     }
+    
+
     
 //TODO:开始计算分数
     per =  [self caculateScore];
@@ -360,6 +394,11 @@
     
     
     [self hideButtonView];
+    
+    if (isX&&btnModel.row==1) {
+        isX = NO;
+        ball.areadyBall = 1;
+    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.buttonContro = [[UIControl alloc]initWithFrame:self.frame];
         [self.buttonContro addTarget:self action:@selector(hideButtonView) forControlEvents:UIControlEventTouchUpInside];

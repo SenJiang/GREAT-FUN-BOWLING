@@ -23,7 +23,7 @@
 
 @property (nonatomic, copy)NSString *threeScore;
 
-@property (nonatomic, assign)int areadyBall ;  // 012
+@property (nonatomic, assign)int areadyBall ;  //X second 需要 1是偏移
 @property (nonatomic, assign)int needNumber ;  // 012
 @property (nonatomic, assign)int type ;  // 01234567(x/) 
 

@@ -13,7 +13,7 @@
 #define kTwoButtonHeigth (Alertheigth/2)
 
 
-#define Alertwidth 310.0f
+#define Alertwidth 280.0f
 #define Alertheigth 200.0f
 #define XWtitlegap 15.0f
 #define XWtitleofheigth 25.0f
@@ -163,7 +163,90 @@
     }
     return self;
 }
+//Edit alert 4个
+- (id)initWithleftBlock:(void(^)())leftBlock
+             rightBlock:(void(^)())rightBlock thirdBlock:(void(^)())thirdBlock alertBlock:(void(^)())alertBlock{
+    if (self = [super init]) {
+        self.backgroundColor = [UIColor whiteColor];
+        
+        
+        CGFloat btnHeight = kNewGameAlertHeight/6;
+        CGRect leftbtnFrame;
+        CGRect rightbtnFrame;
+        CGRect thirdButtonBtnFrame;
+        CGRect fourBtnFrame;
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kNewGameAlertWidth, btnHeight)];
+        imageView.image = [UIImage imageNamed:@"ico_edit_score"];
+        [self addSubview:imageView];
+        
+        UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, btnHeight, kNewGameAlertWidth, 1.5)];
+        line1.backgroundColor = ZZN_UI_COLOR_BLACK;
+        [self addSubview:line1];
+        
+        UIImageView *imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, btnHeight, kNewGameAlertWidth, btnHeight)];
+        imageView2.image = [UIImage imageNamed:@"ico_which_roll"];
+        [self addSubview:imageView2];
+        
+        UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, btnHeight*2, kNewGameAlertWidth, 1.5)];
+        line2.backgroundColor = ZZN_UI_COLOR_BLACK;
+        [self addSubview:line2];
+        
+        
+        
+        
+        UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(0, btnHeight*3, kNewGameAlertWidth, 1)];
+        line3.backgroundColor = ZZN_UI_COLOR_BLACK;
+        [self addSubview:line3];
+        
+        UIView *line4 = [[UIView alloc] initWithFrame:CGRectMake(0, btnHeight*4, kNewGameAlertWidth, 1)];
+        line4.backgroundColor = ZZN_UI_COLOR_BLACK;
+        [self addSubview:line4];
+        
+        UIView *line5 = [[UIView alloc] initWithFrame:CGRectMake(0, btnHeight*5, kNewGameAlertWidth, 1)];
+        line5.backgroundColor = ZZN_UI_COLOR_BLACK;
+        [self addSubview:line5];
+        
+        leftbtnFrame = CGRectMake(0, btnHeight*2, kNewGameAlertWidth, btnHeight);
+        rightbtnFrame = CGRectMake(0, btnHeight*3 , kNewGameAlertWidth , btnHeight);
+        thirdButtonBtnFrame =  CGRectMake(0, btnHeight*4 , kNewGameAlertWidth , btnHeight);
+        fourBtnFrame = CGRectMake(0, btnHeight*5 , kNewGameAlertWidth , btnHeight);
+        self.leftbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.rightbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.thirdButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.alertButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.leftbtn.frame = leftbtnFrame;
+        self.rightbtn.frame = rightbtnFrame;
+        self.thirdButton.frame = thirdButtonBtnFrame;
+        self.alertButton.frame = fourBtnFrame;
+        
+        
+        [self.leftbtn setBackgroundImage:[UIImage imageNamed:@"ico_first"] forState:UIControlStateNormal];
+        [self.rightbtn setBackgroundImage:[UIImage imageNamed:@"ico_second"] forState:UIControlStateNormal];
+        [self.thirdButton setBackgroundImage:[UIImage imageNamed:@"ico_three"] forState:UIControlStateNormal];
+        [self.alertButton setBackgroundImage:[UIImage imageNamed:@"ico_edit_score_cancel"] forState:UIControlStateNormal];
+      
+        [self.alertButton addTarget:self action:@selector(dismissAlert) forControlEvents:UIControlEventTouchUpInside];
+        [self.leftbtn addTarget:self action:@selector(leftbtnclicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.rightbtn addTarget:self action:@selector(rightbtnclicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.thirdButton addTarget:self action:@selector(alertbtnclicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.leftbtn];
+        [self addSubview:self.rightbtn];
+        [self addSubview:self.thirdButton];
+        [self addSubview:self.alertButton];
+        self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+        
+        
+        self.leftBlock = leftBlock;
+        self.rightBlock = rightBlock;
+        self.thirdBlock = thirdBlock;
+        self.alertBlock = alertBlock;
+        
+    }
+    return self;
 
+
+}
 //两个
 - (id)initWithTitle:(NSString *)title
         contentText:(NSString *)content
