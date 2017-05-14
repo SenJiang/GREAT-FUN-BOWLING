@@ -170,9 +170,10 @@
     NSMutableArray *personArr = [NSMutableArray new];
     for (int i = 0; i<4; i++) {
         Person *person = self.allPersonArr[i];
-        person.image = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/bowling%d.png",i]];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:person.image]) {
-            [[NSFileManager defaultManager] removeItemAtPath:person.image error:nil];
+      
+        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/bowling%d.png",i]];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
         }
         
         if (i == 0) {
@@ -184,7 +185,7 @@
         }else if (i == 3){
             person.socreData = boardArr3;
         }
-
+        person.image = [NSString stringWithFormat:@"%d",i];
         person.name = [NSString stringWithFormat:@"P%d",i+1];
         person.total = @"";
         [personArr addObject:person];

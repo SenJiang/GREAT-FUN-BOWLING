@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A33A61ED1EC4C456002D53A2 /* ButtonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A33A61EC1EC4C456002D53A2 /* ButtonModel.m */; };
+		A33A61F91EC840C4002D53A2 /* ScoreSubCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A33A61F71EC840C4002D53A2 /* ScoreSubCell.m */; };
+		A33A61FA1EC840C4002D53A2 /* ScoreSubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A33A61F81EC840C4002D53A2 /* ScoreSubCell.xib */; };
 		A36C0E281EB8C58A002C73BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E271EB8C58A002C73BD /* main.m */; };
 		A36C0E2B1EB8C58A002C73BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A36C0E2A1EB8C58A002C73BD /* AppDelegate.m */; };
 		A36C0E331EB8C58A002C73BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A36C0E321EB8C58A002C73BD /* Assets.xcassets */; };
@@ -61,6 +63,9 @@
 		4B102912469B05E001468D0A /* Pods-GREAT FUN BOWLING.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GREAT FUN BOWLING.release.xcconfig"; path = "Pods/Target Support Files/Pods-GREAT FUN BOWLING/Pods-GREAT FUN BOWLING.release.xcconfig"; sourceTree = "<group>"; };
 		A33A61EB1EC4C456002D53A2 /* ButtonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonModel.h; sourceTree = "<group>"; };
 		A33A61EC1EC4C456002D53A2 /* ButtonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonModel.m; sourceTree = "<group>"; };
+		A33A61F61EC840C4002D53A2 /* ScoreSubCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreSubCell.h; sourceTree = "<group>"; };
+		A33A61F71EC840C4002D53A2 /* ScoreSubCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreSubCell.m; sourceTree = "<group>"; };
+		A33A61F81EC840C4002D53A2 /* ScoreSubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreSubCell.xib; sourceTree = "<group>"; };
 		A36C0E231EB8C58A002C73BD /* GREAT FUN BOWLING.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GREAT FUN BOWLING.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36C0E271EB8C58A002C73BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A36C0E291EB8C58A002C73BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -213,6 +218,9 @@
 		A36C0E3F1EB8D26E002C73BD /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				A33A61F61EC840C4002D53A2 /* ScoreSubCell.h */,
+				A33A61F71EC840C4002D53A2 /* ScoreSubCell.m */,
+				A33A61F81EC840C4002D53A2 /* ScoreSubCell.xib */,
 				A36C0ED11EBB7BD2002C73BD /* ScoreCollectionViewCell.h */,
 				A36C0ED21EBB7BD2002C73BD /* ScoreCollectionViewCell.m */,
 				A36C0ED31EBB7BD2002C73BD /* ScoreCollectionViewCell.xib */,
@@ -405,6 +413,7 @@
 			files = (
 				A36C0EA41EBA173E002C73BD /* well_done_bg.jpg in Resources */,
 				A36C0E981EBA173E002C73BD /* game_bga1.jpg in Resources */,
+				A33A61FA1EC840C4002D53A2 /* ScoreSubCell.xib in Resources */,
 				A36C0E9E1EBA173E002C73BD /* loading_bg.jpg in Resources */,
 				A36C0E941EBA173E002C73BD /* fantastic_bg.jpg in Resources */,
 				A36C0E971EBA173E002C73BD /* game_bga.jpg in Resources */,
@@ -498,6 +507,7 @@
 				A36C0E641EB8D26E002C73BD /* ZZNAlterView.m in Sources */,
 				A36C0ED01EBB7461002C73BD /* BLMainView.m in Sources */,
 				A3E432051EC379EE00FAB89F /* Manager.m in Sources */,
+				A33A61F91EC840C4002D53A2 /* ScoreSubCell.m in Sources */,
 				A36C0E2B1EB8C58A002C73BD /* AppDelegate.m in Sources */,
 				A36C0E701EB8D26E002C73BD /* UIViewController+UE.m in Sources */,
 				A36C0ED91EBCC193002C73BD /* ScoreTableViewCell.m in Sources */,

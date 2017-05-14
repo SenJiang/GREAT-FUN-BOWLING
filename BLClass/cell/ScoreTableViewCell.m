@@ -8,6 +8,12 @@
 
 #import "ScoreTableViewCell.h"
 #import "ZZNUIManager.h"
+
+@interface ScoreTableViewCell ()
+
+@property (nonatomic,assign)BOOL isload;
+
+@end
 @implementation ScoreTableViewCell
 
 - (void)awakeFromNib {
@@ -18,6 +24,8 @@
 - (void)initUI{
     self.label_score_total.layer.borderWidth = 1;
     self.label_score_total.layer.borderColor = ZZN_UI_RGB(160, 160, 160).CGColor;
+    
+    
 }
 -(void)setCeellHeight:(CGFloat)ceellHeight
 {

@@ -70,6 +70,27 @@
     [aCoder encodeObject:self.image forKey:@"image"];
     [aCoder encodeObject:self.total forKey:@"total"];
 }
+//计算总分
++(int)getTotal:(Person *)person{
+    
+    int total = 0;
+    for (int i= 0; i<person.socreData.count; i++) {
+        Board *board  = person.socreData[i];
+        total += board.resultScore.intValue;
+    }
+    return total;
+};
 
++(BOOL)isGameEnd:(Person *)person;{
+    BOOL ret = YES;
+    for (int i= 0; i<person.socreData.count; i++) {
+        Board *board  = person.socreData[i];
+        if ([board.resultScore isEqualToString:@""]) {
+            ret = NO;
+        }
+        
+    }
+    return ret;
+}
 @end
 

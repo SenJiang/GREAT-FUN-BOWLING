@@ -12,6 +12,7 @@
 #import "ZZNUIManager.h"
 #import "ScoreBoardView.h"
 #import "Manager.h"
+#import "ScoreSubCell.h"
 @interface ScoreCollectionViewCell ()<UITableViewDelegate ,UITableViewDataSource>
 
 @property(nonatomic,strong)UIImagePickerController *imagePicker;
@@ -39,7 +40,11 @@
     self.tableView_mark.transform = CGAffineTransformMakeRotation(-M_PI / 2);
    
     [self.tableView_mark registerNib:[UINib nibWithNibName:@"ScoreTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"markCell"];
-   
+   [self.tableView_mark registerNib:[UINib nibWithNibName:@"ScoreSubCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"subCell"];
+    
+    
+    
+    
     dispatch_async(dispatch_get_main_queue(), ^{
          [self.tableView_mark setFrame:CGRectMake(self.textfild_name.frame.size.width, 0, self.label_totalScore.frame.origin.x-self.textfild_name.frame.size.width, self.imageView_head.frame.size.height +self.imageView_head.frame.origin.y)];
         
@@ -84,7 +89,6 @@
         }else{
             self.imageView_head.image = [UIImage imageNamed:@"ico_boll.jpg"];
         }
-//        self.imageView_head.contentMode = UIViewContentModeRedraw;
         self.textfild_name.text = person.name;
         
         self.label_totalScore.text = person.total;
@@ -104,18 +108,34 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ScoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"markCell" forIndexPath:indexPath];
-    cell.transform = CGAffineTransformMakeRotation(M_PI/2);
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.label_number.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
-    cell.ceellHeight = self.imageView_head.frame.size.height;
-    cell.board = self.dataSource[indexPath.row];
-    return cell;
+    
+    if (indexPath.row == 9) {
+        ScoreSubCell *subCell = [tableView dequeueReusableCellWithIdentifier:@"subCell" forIndexPath:indexPath];
+        subCell.transform = CGAffineTransformMakeRotation(M_PI/2);
+        subCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        subCell.labe_num.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
+        subCell.ceellHeight = self.imageView_head.frame.size.height;
+        subCell.board = self.dataSource[indexPath.row];
+        
+        return subCell;
+    }else{
+        ScoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"markCell" forIndexPath:indexPath];
+        cell.transform = CGAffineTransformMakeRotation(M_PI/2);
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.label_number.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
+        cell.ceellHeight = self.imageView_head.frame.size.height;
+        cell.board = self.dataSource[indexPath.row];
+        return cell;
+    }
+   
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.tableView_mark.frame.size.width/3;;
+    if (indexPath.row == 9) {
+        return self.tableView_mark.frame.size.width/3/2+self.tableView_mark.frame.size.width/3;
+    }
+    return self.tableView_mark.frame.size.width/3;
 }
 #pragma mark - UITableViewDataSource
 

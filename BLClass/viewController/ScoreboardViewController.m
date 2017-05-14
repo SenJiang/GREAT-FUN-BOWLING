@@ -31,6 +31,8 @@
 
 @property(nonatomic, strong)UIImageView *showGreatImageView;
 
+@property(nonatomic, strong)UIImageView *showGameEndImageView;
+
 @property(nonatomic ,assign)int indexPx;//第几个cell
 
 @property(nonatomic, assign)int select; //1 是取相册，2是拍照
@@ -64,6 +66,14 @@
 {
     self.mainView = [[BLMainView alloc]initWithFrame:CGRectMake(5, 44, ZZN_UI_SCREEN_W, ZZN_UI_SCREEN_H - 44)];
     [self.view addSubview:self.mainView];
+    
+    //游戏结束
+    self.showGameEndImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
+    self.showGameEndImageView.hidden = YES;
+    self.showGameEndImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapEnd = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showGameEndImageViewAction)];
+    [self.showGameEndImageView addGestureRecognizer:tapEnd];
+    [self.view addSubview:self.showGameEndImageView];
     
     //打得好
     self.showGreatImageView = [[UIImageView alloc]initWithFrame:self.view.frame];
@@ -102,7 +112,10 @@
             self.showGreatImageView.image = [UIImage imageNamed:@"bravo_bg.jpg"];
             self.showGreatImageView.hidden = NO;
         }else if (showIndex == game_end){
-            self.showGreatImageView.image = [UIImage imageNamed:@"game_end_bg.jpg"];
+            self.showGameEndImageView.image = [UIImage imageNamed:@"game_end_bg.jpg"];
+            self.showGameEndImageView.hidden = NO;
+        }else if (showIndex == good_job){
+            self.showGreatImageView.image = [UIImage imageNamed:@"good_job_bg.jpg"];
             self.showGreatImageView.hidden = NO;
         }
     };
@@ -257,7 +270,9 @@
 - (void)showImageViewAction{
     self.showGreatImageView.hidden  = YES;
 }
-
+- (void)showGameEndImageViewAction{
+    self.showGameEndImageView.hidden  = YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

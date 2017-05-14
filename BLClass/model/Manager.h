@@ -23,13 +23,13 @@
 //#define fourPerson    @"STORAGE_Four_personData"
 
 typedef enum {
-    bravo       = 1,
+    well_done   = 1,
     bravo_three = 2,
     fantastic   = 3,
     game_end    = 4,
-    good_job    = 5,
-    well_done   = 6,
-    result      = 7,
+    result      = 5,
+    bravo       = 6,
+    good_job    = 7,
 }showIndex;
 
 @interface Manager : NSObject

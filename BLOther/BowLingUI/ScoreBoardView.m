@@ -11,19 +11,19 @@
 
 @interface ScoreBoardView ()
 
-@property (nonatomic, assign)CGRect cellFrame;
+@property (nonatomic, assign)CGRect cellFrame;//cell 的坐标
 
-@property (nonatomic, assign)CGRect arrowFrame;
+@property (nonatomic, assign)CGRect arrowFrame; //cell 在当前坐标系的位置
 
 @property (nonatomic, strong)UIImageView *backimageView;
 
 @property (nonatomic, strong)Board *board;
 
-@property (nonatomic, assign)int row;
+@property (nonatomic, assign)int row;//第几次记分
 
 @property (nonatomic, strong)NSMutableArray *butArr;
 
-@property (nonatomic, strong)ButtonModel *btnModel;
+@property (nonatomic, strong)ButtonModel *btnModel;//保留再次创建的参数
 @end
 
 @implementation ScoreBoardView
@@ -62,7 +62,11 @@
         [self addSubview:backimageView];
     
         //箭头
-        UIImageView *arrowView = [[UIImageView alloc]initWithFrame:CGRectMake(self.arrowFrame.origin.x, 0, 15, 100)];
+    CGFloat arrow_x = self.arrowFrame.origin.x;
+    if (self.board.areadyBall== 1) {
+        arrow_x += self.arrowFrame.size.width/2;
+    }
+        UIImageView *arrowView = [[UIImageView alloc]initWithFrame:CGRectMake(arrow_x, 0, 15, 100)];
         arrowView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(arrowViewAction)];
         arrowView.contentMode = UIViewContentModeScaleToFill;
@@ -90,14 +94,22 @@
             [btn addTarget:self action:@selector(jump:) forControlEvents:UIControlEventTouchUpInside];
             [backimageView addSubview:btn];
             
-            if (self.board.firstScore == 0) {
+            //第一次球的展示
+            if (![self.board.firstFinish isEqualToString:@"yes"]) {
                 btn.selected = YES;
+                if (i==7) {
+                    btn.selected = NO;
+                    btn.userInteractionEnabled = NO;
+                }
+            }else{
+                //第二记球的展示
+                btn.selected = YES;
+                if ((i==6 || i>(5- self.board.firstScore.intValue))&&i!=7) {
+                    btn.selected = NO;
+                    btn.userInteractionEnabled = NO;
+                }
             }
-            if (i==7) {
-                btn.selected = NO;
-                btn.userInteractionEnabled = NO;
-            }
-                
+            
             btn.tag=i;
         }
     
@@ -106,17 +118,17 @@
 {
     self.btnModel.cellFrame = self.cellFrame;
     CGRect Arrowframe = self.arrowFrame;
-    if (self.arrowFrame.origin.x + Arrowframe.size.width/2>ZZN_UI_SCREEN_W/2) {
+    if ((self.arrowFrame.origin.x + Arrowframe.size.width/2>ZZN_UI_SCREEN_W/2)&&self.row<=8) {
          Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
     }else{
-         Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
-    }
-   
-    if (self.arrowFrame.origin.x>ZZN_UI_SCREEN_W/2){
-        Arrowframe.origin.x = Arrowframe.origin.x - Arrowframe.size.width/2;
-
+       
+             Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
+        
     }
     
+//    if (self.row>=8) {
+//        Arrowframe.origin.x = Arrowframe.origin.x + Arrowframe.size.width/2;
+//    }
     self.btnModel.arrowFrame = Arrowframe;
     self.btnModel.buttonTag = (int)button.tag;
     self.btnModel.row = self.row;
@@ -124,47 +136,11 @@
     [self.delegate clickBtnRefreshWith:self.btnModel];
     
     return;
-    //是否还能下一个
-    if (!self.board.firstScore&&!self.board.secondScore) {
-        //重新刷新
-        [self refrshButton:YES];
-        self.board.firstScore =[NSString stringWithFormat:@"%d",(int)button.tag];
-        if (self.boardBtnCall) {
-            self.boardBtnCall((int)button.tag);
-        }
-    }else{
-        [self refrshButton:NO];
-    }
-    
-    
-    
-    
-}
-- (void)refrshButton:(BOOL )allRefresh
-{
-    if (allRefresh) {
-        for (int i = 0; i<self.butArr.count; i++) {
-            UIButton *btn = self.butArr[i];
-            btn.selected = YES;
-            if (i==7) {
-                btn.selected = NO;
-                btn.userInteractionEnabled = NO;
-            }
-        }
-    }else{
-        if (self.board.firstScore) {//第一个数有了，给弹框
-            
-        }else{
-            
-        }
-        
-    }
     
 }
 - (void)arrowViewAction
 {
     [self removeFromSuperview];
-    self.delegate = nil;
     
 }
 -(void)dealloc{

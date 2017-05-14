@@ -21,4 +21,5 @@
 @property(nonatomic,assign)int buttonTag;
 
 @property(nonatomic,strong)Board *board;
+
 @end

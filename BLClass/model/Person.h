@@ -42,4 +42,9 @@
 
 @property (nonatomic, strong)NSMutableArray<Board *> *socreData;
 
+//计算总分
++(int)getTotal:(Person *)person;
+
++(BOOL)isGameEnd:(Person *)person;
+
 @end

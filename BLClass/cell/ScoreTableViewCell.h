@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labe_score_total_Constraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *label_score_first_Constraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *label_score_second_Constraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *label_score_second_Constraint_right;
+
+@property (nonatomic, assign)BOOL isLastCell;
 
 @property (nonatomic, assign)CGFloat ceellHeight;
 @property (nonatomic, strong)Board *board;

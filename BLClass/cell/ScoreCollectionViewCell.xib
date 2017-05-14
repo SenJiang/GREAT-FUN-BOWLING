@@ -73,7 +73,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ueT-EV-8QD">
-                        <rect key="frame" x="81" y="0.0" width="305" height="146"/>
+                        <rect key="frame" x="81" y="1" width="305" height="145"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="dataSource" destination="-1" id="G89-5Z-BPy"/>
@@ -97,7 +97,7 @@
                 <constraint firstAttribute="trailing" secondItem="9Px-W9-qhF" secondAttribute="trailing" constant="30" id="Avo-R9-Fw0"/>
                 <constraint firstItem="bXl-sd-6vm" firstAttribute="top" secondItem="r7n-Ln-dvH" secondAttribute="bottom" id="Bxa-f3-VL3"/>
                 <constraint firstItem="GeG-0d-6LC" firstAttribute="leading" secondItem="ueT-EV-8QD" secondAttribute="trailing" id="Iuc-le-CAo"/>
-                <constraint firstItem="ueT-EV-8QD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Lsx-oJ-AcZ"/>
+                <constraint firstItem="ueT-EV-8QD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="1" id="Lsx-oJ-AcZ"/>
                 <constraint firstItem="ueT-EV-8QD" firstAttribute="bottom" secondItem="bXl-sd-6vm" secondAttribute="bottom" id="WeX-Rh-8J0"/>
                 <constraint firstItem="SIm-re-MQ1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YaC-A7-7LQ"/>
                 <constraint firstItem="GeG-0d-6LC" firstAttribute="bottom" secondItem="ueT-EV-8QD" secondAttribute="bottom" id="aoI-ut-9u5"/>

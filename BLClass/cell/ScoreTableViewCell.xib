@@ -114,9 +114,10 @@
                 <outlet property="label_score_first_Constraint" destination="7H3-b8-rq6" id="vON-KH-ZkG"/>
                 <outlet property="label_score_second" destination="r27-p1-JXs" id="zvG-Z4-Kmp"/>
                 <outlet property="label_score_second_Constraint" destination="3cY-YE-Owe" id="fzY-o6-Yqe"/>
+                <outlet property="label_score_second_Constraint_right" destination="YGP-Ut-Ndt" id="x2X-58-5zN"/>
                 <outlet property="label_score_total" destination="sPL-Yd-2mC" id="HSb-yY-B1t"/>
             </connections>
-            <point key="canvasLocation" x="-151.5" y="72"/>
+            <point key="canvasLocation" x="-402.5" y="78"/>
         </tableViewCell>
     </objects>
 </document>
