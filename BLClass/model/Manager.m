@@ -100,16 +100,16 @@
    
     for (int i = 0; i<10; i++) {
         Board *board1 = [[Board alloc]init];
-        board1.resultScore = board1.secondScore = board1.firstScore = @"";
+        board1.resultScore = board1.secondScore = board1.threeScore = board1.firstScore = @"";
         [boardArr1 addObject:board1];
         Board *board2 = [[Board alloc]init];
-        board2.resultScore = board2.secondScore = board2.firstScore = @"";
+        board2.resultScore = board2.secondScore = board2.threeScore= board2.firstScore = @"";
         [boardArr2 addObject:board2];
         Board *board3 = [[Board alloc]init];
-        board3.resultScore = board3.secondScore = board3.firstScore = @"";
+        board3.resultScore = board3.secondScore = board3.threeScore= board3.firstScore = @"";
         [boardArr3 addObject:board1];
         Board *board4 = [[Board alloc]init];
-        board4.resultScore = board4.secondScore = board4.firstScore = @"";
+        board4.resultScore = board4.secondScore = board4.threeScore= board4.firstScore = @"";
         [boardArr4 addObject:board4];
         
     }

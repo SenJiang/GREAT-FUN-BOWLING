@@ -17,6 +17,7 @@
     board.resultScore = [self.resultScore copyWithZone:zone];
     board.firstFinish = [self.firstFinish copyWithZone:zone];
     board.firstFinish = [self.secondFinish copyWithZone:zone];
+    board.threeScore = [self.threeScore copyWithZone:zone];
     return board;
 }
 
@@ -28,6 +29,7 @@
         self.resultScore = [aDecoder decodeObjectForKey:@"resultScore"];
         self.firstFinish = [aDecoder decodeObjectForKey:@"firstFinish"];
         self.secondFinish = [aDecoder decodeObjectForKey:@"secondFinish"];
+        self.threeScore = [aDecoder decodeObjectForKey:@"threeScore"];
 
     }
     return self;
@@ -39,6 +41,7 @@
     [aCoder encodeObject:self.resultScore forKey:@"resultScore"];
     [aCoder encodeObject:self.firstFinish forKey:@"firstFinish"];
     [aCoder encodeObject:self.secondFinish forKey:@"secondFinish"];
+    [aCoder encodeObject:self.threeScore forKey:@"threeScore"];
 }
 @end
 @implementation Person
