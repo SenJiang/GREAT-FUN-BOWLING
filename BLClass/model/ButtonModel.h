@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Person.h"
 
+//这个模型是为了每次创建buttonView的时候，所需要用到的参数
 @interface ButtonModel : NSObject
 
 

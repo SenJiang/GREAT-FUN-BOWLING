@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Person.h"
 
 
 #define firstBoard  @"STORAGE_boardData"
@@ -37,13 +37,25 @@ typedef enum {
 @property (nonatomic,strong)NSArray *personArr;
 
 @property (nonatomic,strong)NSArray *allPersonArr;
+
+@property (nonatomic,assign)BOOL  horizontal;//横屏
+
+@property (nonatomic,assign)int  nums;  //参与比赛的人数
+
+@property (nonatomic, copy)NSString *winnner_name;
+
 - (void)writeDataWithArray:(NSArray *)array andName:(NSString *)name;
+
+- (void)writeAllDataWithArray:(NSArray *)array;
 
 - (NSArray *)getDataWithIdentifier:(NSString *)name;
 
 - (NSArray *)getAllDataSource;
 
+//删除所有的分数
 - (NSArray *)removeAllScore;
 
 - (NSArray *)removeAllScoreAndAllPhotos;
+//计算分数
+- (Person *)caculateScore:(int)index;
 @end

@@ -158,7 +158,7 @@ CFTimeInterval const ZZNAnimationDuration_0d25 = 0.25;
 //edit show
 - (void)eidtShowFirstBlock:(void(^)(void))firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock{
     ZZNAlterView *alter = [[ZZNAlterView alloc] initWithleftBlock:firstBlock rightBlock:secondBlock thirdBlock:thirdBlock];
-    [alter showNewGame];
+    [alter showTwoNewGame];
     
 }
 //edit show 三个分选择
@@ -195,6 +195,15 @@ CFTimeInterval const ZZNAnimationDuration_0d25 = 0.25;
         [alter showNewGame];
     });
     
+    
+}
+//5个选项的提示 save
+- (void)showThreeSelectAlert:(NSString *)msg  firstBlock:(void(^)())firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock fourBlock:(void(^)(void))fourBlock fiveBlock:(void(^)(void))fiveBlock{
+    dispatch_async(dispatch_get_main_queue(), ^{
+         ZZNAlterView *alter = [[ZZNAlterView alloc] initWithleftBlock:firstBlock rightBlock:secondBlock thirdBlock:thirdBlock alertBlock:fourBlock cancelBlock:fiveBlock];
+        [alter showFive];
+    });
+   
     
 }
 //按钮

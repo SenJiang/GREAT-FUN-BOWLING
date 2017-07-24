@@ -7,16 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import <ChameleonFramework/Chameleon.h>
 #import <MBProgressHUD.h>
-/**
- *  UI统一风格模块
- */
 
 
-//打印(快捷打印)
-#define ZZNLog(var) LxDBAnyVar(var)
-#define ZZNLogAny(x) LxPrintAnything(x)
+
+
 
 //根据RGB自定义颜色
 #define ZZN_UI_RGB(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
@@ -27,13 +22,31 @@
 #define ZZNTestColor [UIColor yellowColor]
 
 
-
+/******************************BOWLIG*****************************************/
+//通知
+#define BOWLING_Notification_Screen  @"BOWLING_Notification_Screen"
 
 //橙色字体
 #define ZZN_UI_COLOR_ORANGE UIColorFromRGB(0xffc600)
 
-//voiceButton主题色
-#define VOICEBUTTON_MAIN_COLOR [UIColor colorWithRed:245/255.0 green:165/255.0 blue:55/255.0 alpha:1.0]
+#define ZZN_UI_COLOR_BOWLing_BLUE UIColorFromRGB(0x02a3b4d)
+
+//BOWLIG蓝色背景
+#define BOWLING_BACKGROUD_COLOR [UIColor colorWithRed:20/255.0 green:50/255.0 blue:90/255.0 alpha:1.0]
+//线条颜色
+#define BOWLING_LINE_COLOR [UIColor colorWithRed:160/255.0 green:160/255.0 blue:160/255.0 alpha:1.0]
+
+//第一个分的颜色  35 46 66 蓝灰色
+#define BOWLING_FIRST_COLOR [UIColor colorWithRed:19/255.0 green:33/255.0 blue:56/255.0 alpha:0.6]
+
+//第二个分的颜色  140 152 172 灰色
+#define BOWLING_SECOND_COLOR [UIColor colorWithRed:140/255.0 green:152/255.0 blue:172/255.0 alpha:1.0]
+
+//横屏排行的颜色  152 173 193 灰色
+#define BOWLING_RANK_COLOR [UIColor colorWithRed:152/255.0 green:173/255.0 blue:193/255.0 alpha:1.0]
+
+
+
 
 // 1.7 ===========================================================================
 // UI改版
@@ -70,6 +83,10 @@
 //RGB颜色转换（16进制->10进制）
 #define UIColorFromRGB(rgbValue)    [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+
+#define BLWeak     __weak typeof(self)weakSelf = self;
+
+#define BLStrong   __strong typeof(weakSelf)self = weakSelf;
 
 // 字体
 #define ZZN_UI_FONT_24 [UIFont systemFontOfSize:24]
@@ -140,6 +157,9 @@ button;\
 
 //四个选项的提示
 - (void)showThreeSelectAlert:(NSString *)msg firstTitle:(NSString *)firstTitle secondTitle:(NSString *)secondTittle thirdTitle:(NSString *)thirdTitle alertBlock:(void(^)())alertBlock firstBlock:(void(^)(void))firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock;
+
+//5个选项的提示 save
+- (void)showThreeSelectAlert:(NSString *)msg  firstBlock:(void(^)())firstBlock secondBlock:(void(^)(void))secondBlock thirdBlock:(void(^)(void))thirdBlock fourBlock:(void(^)(void))fourBlock fiveBlock:(void(^)(void))fiveBlock;
 //按钮
 - (void)showButtonWithFrame:(CGRect)frame alertBlock:(void(^)())alertBlock;
 /**

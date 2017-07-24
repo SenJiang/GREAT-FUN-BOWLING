@@ -13,11 +13,38 @@
 #import "Manager.h"
 @interface LoadingViewController ()
 @property (nonatomic, strong)UILabel *label_loading;
+@property (nonatomic, strong)UIImageView *backImageView;
+@property (nonatomic, assign)BOOL isLoaded;//第一次进来
+@end
+
+@implementation UINavigationController (Rotate)
+
+-(BOOL)shouldAutorotate{
+    return self.topViewController.shouldAutorotate;
+    
+}
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return [self.viewControllers.lastObject supportedInterfaceOrientations];
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return [self.viewControllers.lastObject preferredInterfaceOrientationForPresentation];
+}
 
 @end
 
 @implementation LoadingViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    if (self.isLoaded) {
+        //重新loading
+        self.label_loading.text = @"LOADING.";
+        [self presentPlayViewController];
+    }
+    self.isLoaded = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -32,7 +59,12 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    
+    __weak typeof(self) weak = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        __strong typeof(weak) self = weak;
+        [self refreshConstrat];
+    }];
+
     
 }
 - (void)initUI
@@ -41,7 +73,7 @@
     UIImageView *backImageView = [UIImageView new];
     backImageView.image = [UIImage imageNamed:@"loading_bg.jpg"];
     [self.view addSubview:backImageView];
-    
+    self.backImageView = backImageView;
     [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
@@ -60,6 +92,7 @@
         make.height.equalTo(@21);
         make.width.equalTo(@90);
     }];
+    [self refreshConstrat];
 }
 - (void)presentPlayViewController
 {
@@ -77,8 +110,28 @@
         
     });
     
-
 }
+- (void)refreshConstrat
+{
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+    //竖屏
+        self.backImageView.image = [UIImage imageNamed:@"S0607001"];
+        [self.backImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(@0);
+        }];
+        
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight) {
+    //横屏
+        self.backImageView.image = [UIImage imageNamed:@"loading_bg2h"];
+        [self.backImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(@0);
+        }];
+    
+    }
+    
+}
+
 - (void)setData
 {
     NSMutableArray *boardArr1 = [NSMutableArray new];
@@ -94,7 +147,7 @@
         [boardArr2 addObject:board2];
         Board *board3 = [[Board alloc]init];
         board3.resultScore = board3.secondScore = board3.threeScore =  board3.firstScore = @"";
-        [boardArr3 addObject:board1];
+        [boardArr3 addObject:board3];
         Board *board4 = [[Board alloc]init];
         board4.resultScore = board4.secondScore = board4.threeScore = board4.firstScore = @"";
         [boardArr4 addObject:board4];
@@ -110,7 +163,7 @@
     for (int i = 0; i<4; i++) {
         Person *person = [[Person alloc]init];
         person.image = [NSString stringWithFormat:@"%d",i];
-        person.name = [NSString stringWithFormat:@"P%d",i+1];
+        person.name = [NSString stringWithFormat:@"Player %d",i+1];
         person.total = @"";
         [personArr addObject:person];
     }
@@ -125,7 +178,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (BOOL)shouldAutorotate
 
+{
+    
+    return YES;
+    
+}
 /*
 #pragma mark - Navigation
 

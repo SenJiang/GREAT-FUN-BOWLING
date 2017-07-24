@@ -43,14 +43,21 @@
 //Edit alert 4个
 - (id)initWithleftBlock:(void(^)())leftBlock
              rightBlock:(void(^)())rightBlock thirdBlock:(void(^)())thirdBlock alertBlock:(void(^)())alertBlock;
+
+//try again 5个
+- (id)initWithleftBlock:(void(^)())leftBlock
+             rightBlock:(void(^)())rightBlock thirdBlock:(void(^)())thirdBlock alertBlock:(void(^)())alertBlock cancelBlock:(void(^)())cancelBlock;
 - (void)show;
 - (void)showThree;
 - (void)showButton;
 - (void)showNewGame;
+- (void)showTwoNewGame ;
+- (void)showFive;
 @property (nonatomic, copy) dispatch_block_t leftBlock;
 @property (nonatomic, copy) dispatch_block_t rightBlock;
 @property (nonatomic, copy) dispatch_block_t thirdBlock;
 @property (nonatomic, copy) dispatch_block_t alertBlock;
+@property (nonatomic, copy) dispatch_block_t fourBlock;
 //点击左右按钮都会触发该消失的block
 @property (nonatomic, copy) dispatch_block_t dismissBlock;
 

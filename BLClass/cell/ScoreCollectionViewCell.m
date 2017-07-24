@@ -13,10 +13,12 @@
 #import "ScoreBoardView.h"
 #import "Manager.h"
 #import "ScoreSubCell.h"
+
 @interface ScoreCollectionViewCell ()<UITableViewDelegate ,UITableViewDataSource>
 
 @property(nonatomic,strong)UIImagePickerController *imagePicker;
 @property(nonatomic,strong)ScoreBoardView *scoreView;
+@property(nonatomic,assign)BOOL isHengpin;
 
 @end
 @implementation ScoreCollectionViewCell
@@ -29,7 +31,6 @@
 - (void)initUI{
     self.label_totalScore.layer.borderColor = ZZN_UI_RGB(160, 160, 160).CGColor;
     self.imageView_head.layer.borderColor = ZZN_UI_RGB(0, 0, 60).CGColor;;
-    
     
     self.tableView_mark.delegate = self;
     self.tableView_mark.dataSource = self;
@@ -48,6 +49,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
          [self.tableView_mark setFrame:CGRectMake(self.textfild_name.frame.size.width, 0, self.label_totalScore.frame.origin.x-self.textfild_name.frame.size.width, self.imageView_head.frame.size.height +self.imageView_head.frame.origin.y)];
         
+        
     });
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageView_headAction)];
@@ -61,9 +63,33 @@
     if (ZZN_UI_SCREEN_W < 350) {
         self.imageView_head_Constraint.constant = self.imageView_head_Constraint.constant - 2;
     }
-    
+    __weak typeof(self) weak = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        __strong typeof(weak) self = weak;
+        [self refreshConstrat];
+    }];
 }
 
+- (void)refreshUI
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView_mark setFrame:CGRectMake(self.textfild_name.frame.size.width, 0, self.label_totalScore.frame.origin.x-self.textfild_name.frame.size.width, self.imageView_head.frame.size.height +self.imageView_head.frame.origin.y)];
+        self.tableView_mark.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+         self.tableView_mark.transform = CGAffineTransformMakeRotation(-M_PI / 2);
+        
+    });
+    self.tabView_top_costraint.constant = 1;
+    self.tabview_left_constraint.constant = 1;
+    self.tabview_right_constraint.constant = 0;
+    if (ZZN_UI_SCREEN_W > 400) {
+        self.imageView_head_Constraint.constant = self.imageView_head_Constraint.constant + 5;
+    }
+    
+    if (ZZN_UI_SCREEN_W < 350) {
+        self.imageView_head_Constraint.constant = self.imageView_head_Constraint.constant - 2;
+    }
+
+}
 
 #pragma mark - Action
 
@@ -108,7 +134,6 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.row == 9) {
         ScoreSubCell *subCell = [tableView dequeueReusableCellWithIdentifier:@"subCell" forIndexPath:indexPath];
         subCell.transform = CGAffineTransformMakeRotation(M_PI/2);
@@ -125,17 +150,36 @@
         cell.label_number.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
         cell.ceellHeight = self.imageView_head.frame.size.height;
         cell.board = self.dataSource[indexPath.row];
+        
         return cell;
     }
    
 
 }
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+      NSLog(@"contentOffset==%@",NSStringFromCGPoint(scrollView.contentOffset));
+    ScoreTableViewCell *cell =  [self.tableView_mark  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.offSetRow inSection:0]];
+    if (self.scrollDidEndCall) {
+        self.scrollDidEndCall(cell,self.tableView_mark);
+    }
+    
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 9) {
-        return self.tableView_mark.frame.size.width/3/2+self.tableView_mark.frame.size.width/3;
+    if (self.isHengpin) {
+        if (indexPath.row == 9) {
+            return self.tableView_mark.frame.size.width/10/2+self.tableView_mark.frame.size.width/10;
+        }
+        return self.tableView_mark.frame.size.width/10;
+    }else{
+    
+        if (indexPath.row == 9) {
+            return self.tableView_mark.frame.size.width/3/2+self.tableView_mark.frame.size.width/3;
+        }
+        return self.tableView_mark.frame.size.width/3;
     }
-    return self.tableView_mark.frame.size.width/3;
 }
 #pragma mark - UITableViewDataSource
 
@@ -150,6 +194,22 @@
         self.tabVCellBlock(self,rect,(int)indexPath.row);
     }
  
+}
+//TODO:横竖屏
+- (void)refreshConstrat
+{
+    
+    
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
+        [self initUI];
+        self.backgroudimageview.hidden = NO;
+        self.isHengpin = NO;
+    }else
+    {
+        self.isHengpin = YES;
+        self.backgroudimageview.hidden = YES;
+    }
 }
 -(void)dealloc{
     

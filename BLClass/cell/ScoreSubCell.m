@@ -33,14 +33,24 @@
     _board = board;
     self.label_first.text = board.firstScore;
     self.labe_second.text = board.secondScore;
+    self.label_result.text = board.resultScore;
+    self.label_three.text = board.threeScore;
     if (board.firstScore.intValue == 6) {
         self.label_first.text = @"X";
     }
     if (board.secondScore.intValue == 7) {
-        self.labe_second.text = @"／";
+        self.labe_second.text = @"/";
     }
-    self.label_result.text = board.resultScore;
-    self.label_three.text = board.threeScore;
+    if (board.secondScore.intValue == 6) {
+        self.labe_second.text = @"X";
+    }
+    if (board.threeScore.intValue == 6) {
+        self.label_three.text = @"X";
+    }
+    if (board.threeScore.intValue == 7) {
+        self.label_three.text = @"/";
+    }
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -26,6 +26,9 @@
     [self initUI];
     [self getSystemCamera];
 }
+-(BOOL)shouldAutorotate{
+    return NO;
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
@@ -34,10 +37,15 @@
 - (void)initUI
 
 {
-     self.photoView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ZZN_UI_SCREEN_W, ZZN_UI_SCREEN_H)];
+    self.photoView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ZZN_UI_SCREEN_W, ZZN_UI_SCREEN_H)];
+    self.photoView.contentMode = UIViewContentModeScaleAspectFill;
+    self.photoView.userInteractionEnabled = YES;
     [self.view addSubview:self.photoView];
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ZZN_UI_SCREEN_W, ZZN_UI_SCREEN_H)];
+    imageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(getSystemCamera)];
+    [imageView addGestureRecognizer:tap];
     imageView.image = [UIImage imageNamed:@"ico_take_bg"];
     [self.photoView addSubview:imageView];
     
@@ -64,6 +72,27 @@
         make.height.equalTo(@40);
     }];
     
+    __weak typeof(self) weak = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        __strong typeof(weak) self = weak;
+        [self refreshConstrat];
+    }];
+
+}
+//TODO:横竖屏
+- (void)refreshConstrat
+{
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        //翻转为竖屏时
+        
+    self.photoView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ZZN_UI_SCREEN_W, ZZN_UI_SCREEN_H)];
+
+    }else if (interfaceOrientation==UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight) {
+        
+        
+    }
 }
 - (void)getSystemCamera
 {
@@ -89,7 +118,6 @@
     UIGraphicsBeginImageContext(self.view.bounds.size);
     [self.photoView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image= UIGraphicsGetImageFromCurrentImageContext();
-    
     UIGraphicsEndImageContext();
     //写入相册
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
@@ -104,10 +132,8 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
     self.photoView.image = image;
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    
 }
 
 

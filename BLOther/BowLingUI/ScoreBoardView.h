@@ -10,8 +10,11 @@
 #import "ZZNUIManager.h"
 #import "Person.h"
 #import "ButtonModel.h"
-#define kScoreBoardHeigh 100
-#define kScoreBoardWidh ZZN_UI_SCREEN_W - 30
+#define kScoreBoardHeigh 90
+#define kScoreBoardWidh ZZN_UI_SCREEN_W - 50
+
+
+
 
 @protocol ScoreBoardViewDelegate <NSObject>
 
@@ -25,6 +28,8 @@
 
 @property(nonatomic,weak)id <ScoreBoardViewDelegate>delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame ArrowFrame:(CGRect)ArrowFrame cellRow:(int)row board:(Board *)board;
+@property (nonatomic, assign)BOOL is4;
+
+- (instancetype)initWithFrame:(CGRect)frame ArrowFrame:(CGRect)ArrowFrame cellRow:(int)row board:(Board *)board columnIndex:(int)columnIndex;
 
 @end
